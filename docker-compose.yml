@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: node:20
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev"
+
+  backend:
+    image: php:8.2-apache
+    container_name: sparks-php
+    volumes:
+      - ./backend:/var/www/html
+    ports:
+      - "8080:80"
+    restart: unless-stopped
