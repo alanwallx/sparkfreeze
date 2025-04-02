@@ -1,45 +1,29 @@
 import { useEffect, useState } from "react";
-
-interface Spark {
-  id: string;
-  text: string;
-  ignored: boolean;
-}
+import { Spark, fetchSparks, addSpark, ignoreSpark } from "./api";
 
 function App() {
   const [sparks, setSparks] = useState<Spark[]>([]);
   const [newSpark, setNewSpark] = useState("");
 
-  // Fetch sparks from backend
+  const loadSparks = () => {
+    fetchSparks().then(setSparks);
+  };
+
   useEffect(() => {
-    fetch("http://localhost:8080")
-      .then((res) => res.json())
-      .then((data) => setSparks(data));
+    loadSparks();
   }, []);
 
   const handleAddSpark = () => {
     if (!newSpark.trim()) return;
-    fetch("http://localhost:8080", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text: newSpark }),
-    }).then(() => {
+    addSpark(newSpark).then(() => {
       setNewSpark("");
-      // Re-fetch sparks
-      fetch("http://localhost:8080")
-        .then((res) => res.json())
-        .then((data) => setSparks(data));
+      loadSparks();
     });
   };
 
   const handleIgnoreSpark = (id: string) => {
-    fetch(`http://localhost:8080?id=${id}`, {
-      method: "DELETE",
-    }).then(() => {
-      // Re-fetch sparks
-      fetch("http://localhost:8080")
-        .then((res) => res.json())
-        .then((data) => setSparks(data));
+    ignoreSpark(id).then(() => {
+      loadSparks();
     });
   };
 
