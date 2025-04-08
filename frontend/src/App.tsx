@@ -21,6 +21,15 @@ function App() {
     });
   };
 
+  const emojiMap = {
+    open: "💥",
+    ignored: "❄️",
+    searched: "🔥",
+    finished: "🧨",
+  };
+
+  const [activeSparkId, setActiveSparkId] = useState<string | null>(null);
+
 
   return (
     <div style={{ padding: "2rem", maxWidth: "600px", margin: "auto" }}>
@@ -44,37 +53,54 @@ function App() {
 
       <ul className={"sparks-list"} style={{ marginTop: "2rem" }}>
         {sparks.map((spark) => (
-          <li key={spark.id} style={{ marginBottom: "1rem" }}>
+          <li
+            key={spark.id}
+            className="spark-item"
+            onClick={() => setActiveSparkId(spark.id === activeSparkId ? null : spark.id)} // toggle on mobile
+          >
+            {emojiMap[spark.state]}&nbsp;
+
             <span
+              className="spark-text"
               style={{
                 textDecoration: spark.state === "ignored" ? "line-through" : "none",
               }}
             >
-              {spark.text}
-            </span>
-            <button
-              style={{ marginLeft: "1rem" }}
-              onClick={() =>
-                updateSparkState(
-                  spark.id,
-                  spark.state === "ignored" ? "open" : "ignored"
-                ).then(() => loadSparks())
-              }
-            >
-              {spark.state === "ignored" ? "Un-ignore" : "Ignore"}
-            </button>
+    {spark.text}
+  </span>
 
-            <a
-              href={`https://www.google.com/search?q=${encodeURIComponent(
-                spark.text
-              )}`}
-              target="_blank"
-              rel="noreferrer"
-              style={{ marginLeft: "1rem" }}
+            <div
+              className="spark-controls"
+              style={{
+                display:
+                  activeSparkId === spark.id ? "inline" : undefined, // fallback for mobile
+              }}
             >
-              Search
-            </a>
+              <button
+                style={{ marginLeft: "1rem" }}
+                onClick={(e) => {
+                  e.stopPropagation(); // prevent bubbling on mobile
+                  updateSparkState(
+                    spark.id,
+                    spark.state === "ignored" ? "open" : "ignored"
+                  ).then(() => loadSparks());
+                }}
+              >
+                {spark.state === "ignored" ? "Un-ignore" : "Ignore"}
+              </button>
+
+              <a
+                href={`https://www.google.com/search?q=${encodeURIComponent(spark.text)}`}
+                target="_blank"
+                rel="noreferrer"
+                style={{ marginLeft: "1rem" }}
+                onClick={(e) => e.stopPropagation()} // prevent mobile tap clash
+              >
+                Search
+              </a>
+            </div>
           </li>
+
         ))}
       </ul>
     </div>

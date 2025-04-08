@@ -67,8 +67,31 @@ button:focus-visible {
   }
 }
 
-ul.sparks-list{
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.spark-controls {
+  display: none;
 }
+
+.spark-item:hover .spark-controls {
+  display: inline;
+}
+
+@media (hover: none) {
+  .spark-controls {
+    display: none;
+  }
+}
+
+ul.sparks-list{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+ul.sparks-list li {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  min-height:40px;
+  border-bottom: 1px solid #333;
+  max-width:380px;
+}
+
