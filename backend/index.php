@@ -14,35 +14,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     exit;
 }
 
+
+// Change spark state (e.g., ignored, open, etc.)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $data = json_decode(file_get_contents('php://input'), true);
+    $newState = $data['state'] ?? null;
+    
+    if ($id && $newState !== null) {
+        $sparks = json_decode(file_get_contents($sparksFile), true);
+        foreach ($sparks as &$spark) {
+            if ($spark['id'] === $id) {
+                $spark['state'] = $newState;
+                break;
+            }
+        }
+        file_put_contents($sparksFile, json_encode($sparks, JSON_PRETTY_PRINT));
+        echo json_encode(['status' => 'updated']);
+    } else {
+        echo json_encode(['status' => 'error']);
+    }
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
     $sparks = file_exists($sparksFile) ? json_decode(file_get_contents($sparksFile), true) : [];
     $sparks[] = [
         'id' => uniqid(),
         'text' => $data['text'],
-        'ignored' => false
+        'state' => 'open'
     ];
     file_put_contents($sparksFile, json_encode($sparks, JSON_PRETTY_PRINT));
     echo json_encode(['status' => 'success']);
-    exit;
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    parse_str($_SERVER['QUERY_STRING'], $params);
-    $id = $params['id'] ?? null;
-    if ($id) {
-        $sparks = json_decode(file_get_contents($sparksFile), true);
-        foreach ($sparks as &$spark) {
-            if ($spark['id'] === $id) {
-                $spark['ignored'] = true;
-                break;
-            }
-        }
-        file_put_contents($sparksFile, json_encode($sparks, JSON_PRETTY_PRINT));
-        echo json_encode(['status' => 'ignored']);
-    } else {
-        echo json_encode(['status' => 'error']);
-    }
     exit;
 }
 

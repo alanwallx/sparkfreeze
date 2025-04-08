@@ -2,31 +2,36 @@
     {
         "id": "67ec611e21fbe",
         "text": "how does a crossover circuit work",
-        "ignored": true
+        "state": "ignored"
     },
     {
         "id": "67ec613945f6b",
         "text": "What happened to DON",
-        "ignored": true
+        "state": "ignored"
     },
     {
         "id": "67ec631117eb2",
-        "text": "Find catalogue for Sharp HIFI front mid 80s",
-        "ignored": false
+        "text": "Find catalogue for Sharp HIFI from mid 80s",
+        "state": "ignored"
     },
     {
         "id": "67ec644f3b9b1",
         "text": "how long does led bulb last",
-        "ignored": false
+        "state": "ignored"
     },
     {
         "id": "67ec658b9c5c7",
         "text": "what are the biggest rock bands currently touring?",
-        "ignored": false
+        "state": "open"
     },
     {
         "id": "67ec6805b19bc",
         "text": "the rise and fall of cable tv",
-        "ignored": false
+        "state": "open"
+    },
+    {
+        "id": "67f508efad23c",
+        "text": "kaleidoscope lineup",
+        "state": "open"
     }
 ]
