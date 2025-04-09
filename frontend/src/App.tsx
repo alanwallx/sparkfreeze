@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Spark, fetchSparks, addSpark, updateSparkState } from "./api";
+import { addSpark, fetchSparks, Spark, SparkState, updateSparkState } from "./api";
 
 function App() {
   const [sparks, setSparks] = useState<Spark[]>([]);
@@ -22,17 +22,17 @@ function App() {
   };
 
   const emojiMap = {
-    open: "💥",
-    ignored: "❄️",
-    searched: "🔥",
-    finished: "🧨",
+    [SparkState.Open]: "💥",
+    [SparkState.Ignored]: "❄️",
+    [SparkState.Searched]: "🔥",
+    [SparkState.Finished]: "🧨",
   };
 
   const [activeSparkId, setActiveSparkId] = useState<string | null>(null);
 
 
   return (
-    <div style={{ padding: "2rem", maxWidth: "600px", margin: "auto" }}>
+    <div className="main-section">
       <h1>Sparks</h1>
 
       <form
@@ -55,51 +55,59 @@ function App() {
         {sparks.map((spark) => (
           <li
             key={spark.id}
-            className="spark-item"
-            onClick={() => setActiveSparkId(spark.id === activeSparkId ? null : spark.id)} // toggle on mobile
+            className={`spark-item ${activeSparkId === spark.id ? "active" : ""}`}
+            onClick={() =>
+              setActiveSparkId(activeSparkId === spark.id ? null : spark.id)
+            }
+            style={{ position: "relative", marginBottom: "3rem" }} // add space for overlay
           >
-            {emojiMap[spark.state]}&nbsp;
-
-            <span
-              className="spark-text"
-              style={{
-                textDecoration: spark.state === "ignored" ? "line-through" : "none",
-              }}
-            >
-    {spark.text}
-  </span>
-
-            <div
-              className="spark-controls"
-              style={{
-                display:
-                  activeSparkId === spark.id ? "inline" : undefined, // fallback for mobile
-              }}
-            >
-              <button
-                style={{ marginLeft: "1rem" }}
-                onClick={(e) => {
-                  e.stopPropagation(); // prevent bubbling on mobile
-                  updateSparkState(
-                    spark.id,
-                    spark.state === "ignored" ? "open" : "ignored"
-                  ).then(() => loadSparks());
+            <div className="spark-content">
+              {emojiMap[spark.state]}&nbsp;
+              <span
+                className="spark-text"
+                style={{
+                  textDecoration: spark.state === SparkState.Ignored ? "line-through" : "none",
                 }}
               >
-                {spark.state === "ignored" ? "Un-ignore" : "Ignore"}
-              </button>
-
-              <a
-                href={`https://www.google.com/search?q=${encodeURIComponent(spark.text)}`}
-                target="_blank"
-                rel="noreferrer"
-                style={{ marginLeft: "1rem" }}
-                onClick={(e) => e.stopPropagation()} // prevent mobile tap clash
-              >
-                Search
-              </a>
+      {spark.text}
+    </span>
             </div>
+
+            {activeSparkId === spark.id && (
+              <div className="spark-buttons">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    updateSparkState(
+                      spark.id,
+                      spark.state === SparkState.Ignored ? SparkState.Open : SparkState.Ignored
+                    ).then(loadSparks);
+                  }}
+                >
+                  ❄️ {spark.state === SparkState.Ignored ? "Un-ignore" : "Ignore"}
+                </button>
+                <a
+                  href={`https://www.google.com/search?q=${encodeURIComponent(
+                    spark.text
+                  )}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  🔥 Search
+                </a>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    updateSparkState(spark.id, SparkState.Finished).then(loadSparks);
+                  }}
+                >
+                  🧨 Finished
+                </button>
+              </div>
+            )}
           </li>
+
 
         ))}
       </ul>

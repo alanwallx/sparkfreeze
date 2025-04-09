@@ -2,7 +2,7 @@
     {
         "id": "67ec611e21fbe",
         "text": "how does a crossover circuit work",
-        "state": "ignored"
+        "state": "finished"
     },
     {
         "id": "67ec613945f6b",
@@ -12,7 +12,7 @@
     {
         "id": "67ec631117eb2",
         "text": "Find catalogue for Sharp HIFI from mid 80s",
-        "state": "open"
+        "state": "ignored"
     },
     {
         "id": "67ec644f3b9b1",
@@ -22,7 +22,7 @@
     {
         "id": "67ec658b9c5c7",
         "text": "what are the biggest rock bands currently touring?",
-        "state": "open"
+        "state": "ignored"
     },
     {
         "id": "67ec6805b19bc",
@@ -32,6 +32,16 @@
     {
         "id": "67f508efad23c",
         "text": "kaleidoscope lineup",
+        "state": "finished"
+    },
+    {
+        "id": "67f67ef974d49",
+        "text": "who are the biggest earners on patreon?",
+        "state": "open"
+    },
+    {
+        "id": "67f6df9498b88",
+        "text": "This is a long long long long spark to see how it holds up when we deal with a long spark",
         "state": "open"
     }
 ]
