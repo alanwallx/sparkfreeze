@@ -13,6 +13,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.main-section {
+  margin:50px;
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -91,8 +94,6 @@ ul.sparks-list li {
   align-items: center;
   justify-content: left;
   min-height:40px;
-  border-bottom: 1px solid #333;
-  max-width:380px;
 }
 
 
@@ -103,9 +104,8 @@ ul.sparks-list li {
   border-radius: 8px;
 }
 
-.spark-item.active {
-  border: 2px solid #999;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.spark-item.active, .spark-item:hover {
+  background-color: #efefef;
 }
 
 .spark-buttons {
@@ -140,4 +140,13 @@ ul.sparks-list li {
   .spark-item:hover .spark-buttons {
     display: flex;
   }
+}
+
+.new-spark-input{
+  width: 70%;
+  margin-right: 1rem;
+  font-size: 1.3rem;
+  padding: 6px;
+  border-radius: 3px;
+  border: 1px solid grey;
 }
