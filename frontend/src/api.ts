@@ -6,6 +6,13 @@ export interface Spark {
 
 const API_URL = "http://localhost:8080";
 
+export enum SparkState {
+  Open = "open",
+  Ignored = "ignored",
+  Searched = "searched",
+  Finished = "finished",
+}
+
 export async function fetchSparks(): Promise<Spark[]> {
   const res = await fetch(API_URL);
   return res.json();
@@ -19,14 +26,11 @@ export async function addSpark(text: string): Promise<void> {
   });
 }
 
-export enum SparkState {
-  Open = "open",
-  Ignored = "ignored",
-  Searched = "searched",
-  Finished = "finished",
+export async function deleteSpark(id: string): Promise<void> {
+  await fetch(`http://localhost:8080?id=${id}`, {
+    method: "DELETE",
+  });
 }
-
-
 
 export async function updateSparkState(
   id: string,

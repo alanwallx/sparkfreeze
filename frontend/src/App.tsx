@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { addSpark, fetchSparks, Spark, updateSparkState } from "./api";
+import { addSpark, fetchSparks, Spark, updateSparkState, deleteSpark } from "./api";
 import SparkForm from "./components/SparkForm.tsx";
 import SparkList from "./components/SparkList";
 
@@ -26,6 +26,7 @@ function App() {
         sparks={sparks}
         updateSparkState={updateSparkState}
         loadSparks={loadSparks}
+        deleteSpark={deleteSpark}
       />
     </div>
   );

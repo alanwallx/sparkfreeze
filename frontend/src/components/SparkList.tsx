@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Spark, SparkState } from "../api";
+import { deleteSpark, Spark, SparkState } from "../api";
 
 
 interface SparkListProps {
   sparks: Spark[];
   updateSparkState: (id: string, state: SparkState) => Promise<void>;
+  deleteSpark: (id: string) => Promise<void>;
   loadSparks: () => void;
 }
 
@@ -68,7 +69,7 @@ export default function SparkList({
                 ❄️ {spark.state === SparkState.Ignored ? "Un-ignore" : "Ignore"}
               </button>
               <a
-                class={"button"}
+                className={"button"}
                 href={`https://www.google.com/search?q=${encodeURIComponent(
                   spark.text
                 )}`}
@@ -85,6 +86,15 @@ export default function SparkList({
                 }}
               >
                 🧨 Finished
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deleteSpark(spark.id).then(loadSparks);
+                }}
+                style={{ color: "red" }}
+              >
+                ❌
               </button>
             </div>
           )}
