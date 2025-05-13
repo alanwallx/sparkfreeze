@@ -2,7 +2,7 @@
     {
         "id": "67ec611e21fbe",
         "text": "how does a crossover circuit work",
-        "state": "finished"
+        "state": "ignored"
     },
     {
         "id": "67ec613945f6b",
@@ -17,7 +17,7 @@
     {
         "id": "67ec644f3b9b1",
         "text": "how long does led bulb last",
-        "state": "ignored"
+        "state": "open"
     },
     {
         "id": "67ec658b9c5c7",
@@ -27,7 +27,7 @@
     {
         "id": "67ec6805b19bc",
         "text": "the rise and fall of cable tv",
-        "state": "open"
+        "state": "ignored"
     },
     {
         "id": "67f508efad23c",
@@ -37,11 +37,51 @@
     {
         "id": "67f67ef974d49",
         "text": "who are the biggest earners on patreon?",
-        "state": "open"
+        "state": "ignored"
     },
     {
         "id": "67f6df9498b88",
         "text": "This is a long long long long spark to see how it holds up when we deal with a long spark",
+        "state": "open"
+    },
+    {
+        "id": "67feca81c9c20",
+        "text": "ggg",
+        "state": "open"
+    },
+    {
+        "id": "67fecc213f68e",
+        "text": "    t",
+        "state": "open"
+    },
+    {
+        "id": "67fed0605a2d9",
+        "text": "ffffffdd",
+        "state": "open"
+    },
+    {
+        "id": "67ff861c8527f",
+        "text": "Take a look at some new CD players",
+        "state": "finished"
+    },
+    {
+        "id": "67ffacab3dd5e",
+        "text": "Is there a variation of MAME for linux? (Faster boot, boot straight to Mame?)",
+        "state": "open"
+    },
+    {
+        "id": "67ffcee60370a",
+        "text": "when people eat glass, how do they do that?",
+        "state": "open"
+    },
+    {
+        "id": "68022cf5bc4a5",
+        "text": "fff",
+        "state": "open"
+    },
+    {
+        "id": "68022d83b9d97",
+        "text": "eeee",
         "state": "open"
     }
 ]

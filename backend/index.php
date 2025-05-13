@@ -50,4 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $sparks = json_decode(file_get_contents($sparksFile), true);
+    $sparks = array_filter($sparks, function ($spark) use ($id) {
+        return $spark['id'] !== $id;
+    });
+    file_put_contents($sparksFile, json_encode($sparks, JSON_PRETTY_PRINT));
+    echo json_encode(['status' => 'deleted']);
+    exit;
+}
+
 echo json_encode(['status' => 'invalid request']);

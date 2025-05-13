@@ -68,6 +68,7 @@ export default function SparkList({
                 ❄️ {spark.state === SparkState.Ignored ? "Un-ignore" : "Ignore"}
               </button>
               <a
+                class={"button"}
                 href={`https://www.google.com/search?q=${encodeURIComponent(
                   spark.text
                 )}`}

@@ -23,7 +23,7 @@ export default function SparkForm({ onSubmit }: SparkFormProps) {
         placeholder="Add a new spark..."
         className="new-spark-input"
       />
-      <button type="submit">
+      <button type="submit" style={{ whiteSpace: "nowrap"}}>
         Save 💥
       </button>
     </form>
