@@ -5,6 +5,7 @@ import SparkList from "./components/SparkList";
 
 function App() {
   const [sparks, setSparks] = useState<Spark[]>([]);
+  const [sparksVisible, setSparksVisible] = useState(false);
 
   const loadSparks = () => {
     fetchSparks().then(setSparks);
@@ -17,17 +18,24 @@ function App() {
   return (
     <div className="main-section">
       <h1>Sparks</h1>
+      <button
+        className="toggle-sparks-button"
+        onClick={() => setSparksVisible(!sparksVisible)}
+      >{sparksVisible ? 'Hide' : 'Show'} Sparks</button>
       <SparkForm onSubmit={(text) => {
         addSpark(text).then(() => {
           loadSparks();
         });
       }} />
-      <SparkList
-        sparks={sparks}
-        updateSparkState={updateSparkState}
-        loadSparks={loadSparks}
-        deleteSpark={deleteSpark}
-      />
+      <div id = {"spark-added"}></div>
+      {sparksVisible && (
+        <SparkList
+          sparks={sparks}
+          updateSparkState={updateSparkState}
+          loadSparks={loadSparks}
+          deleteSpark={deleteSpark}
+        />
+      )}
     </div>
   );
 }

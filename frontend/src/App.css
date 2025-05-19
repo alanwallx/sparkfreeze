@@ -149,3 +149,10 @@ form {
   border-radius: 3px;
   border: 1px solid #eee;
 }
+
+.spark-added-animation {
+  /*// transition to 0 opacity after 1 second over 0.5 seconds*/
+  opacity: 0;
+  transition: opacity 0.5s ease 1s;
+
+}

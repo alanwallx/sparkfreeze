@@ -7,11 +7,24 @@ interface SparkFormProps {
 export default function SparkForm({ onSubmit }: SparkFormProps) {
   const [text, setText] = useState("");
 
+  const animateSparkAdded = (text) => {
+    const sparkAdded = document.getElementById("spark-added");
+    if (sparkAdded) {
+      sparkAdded.innerHTML = '💥' + text;
+      sparkAdded.classList.add("spark-added-animation");
+      setTimeout(() => {
+        sparkAdded.classList.remove("spark-added-animation");
+        sparkAdded.innerHTML = ''; // clear the text after animation
+      }, 2000);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!text.trim()) return;
     onSubmit(text);
     setText(""); // clear the input after submission
+    animateSparkAdded(text);
   };
 
   return (
