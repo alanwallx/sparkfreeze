@@ -33,7 +33,7 @@ function App() {
         addSpark(text).then(() => {
           loadSparks();
         });
-      }} />
+      }}  isListVisible={sparksVisible}/>
       <div id = {"spark-added"}></div>
       {sparksVisible && (
         <SparkList

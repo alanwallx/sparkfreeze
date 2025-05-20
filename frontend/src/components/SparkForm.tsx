@@ -2,15 +2,17 @@ import { useState } from "react";
 
 interface SparkFormProps {
   onSubmit: (text: string) => void;
+  isListVisible: boolean;
 }
 
-export default function SparkForm({ onSubmit }: SparkFormProps) {
+export default function SparkForm({ onSubmit, isListVisible }: SparkFormProps) {
   const [text, setText] = useState("");
 
-  const animateSparkAdded = (text) => {
+  const animateSparkAdded = (text: string) => {
+    if (isListVisible) return; // Don't animate if the list is not visible
     const sparkAdded = document.getElementById("spark-added");
     if (sparkAdded) {
-      sparkAdded.innerHTML = '💥' + text;
+      sparkAdded.innerHTML = '💥 ' + text;
       sparkAdded.classList.add("spark-added-animation");
       setTimeout(() => {
         sparkAdded.classList.remove("spark-added-animation");

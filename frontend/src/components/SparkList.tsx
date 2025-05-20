@@ -12,8 +12,8 @@ interface SparkListProps {
 const emojiMap = {
   [SparkState.Open]: "💥",
   [SparkState.Ignored]: "❄️",
-  [SparkState.Searched]: "🔥",
-  [SparkState.Finished]: "🧨",
+  [SparkState.Searched]: "🔍",
+  [SparkState.Finished]: "🔥",
 };
 
 export default function SparkList({
@@ -66,7 +66,7 @@ export default function SparkList({
                   ).then(loadSparks);
                 }}
               >
-                ❄️ {spark.state === SparkState.Ignored ? "Un-ignore" : "Ignore"}
+                {emojiMap[SparkState.Ignored]} {spark.state === SparkState.Ignored ? "Un-ignore" : "Ignore"}
               </button>
               <a
                 className={"button"}
@@ -75,9 +75,12 @@ export default function SparkList({
                 )}`}
                 target="_blank"
                 rel="noreferrer"
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  updateSparkState(spark.id, SparkState.Searched).then(loadSparks);
+                }}
               >
-                🔥 Search
+                {emojiMap[SparkState.Searched]} Search
               </a>
               <button
                 onClick={(e) => {
@@ -85,7 +88,7 @@ export default function SparkList({
                   updateSparkState(spark.id, SparkState.Finished).then(loadSparks);
                 }}
               >
-                🧨 Finished
+                {emojiMap[SparkState.Finished]} Finished
               </button>
               <button
                 onClick={(e) => {
