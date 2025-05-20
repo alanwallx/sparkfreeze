@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { SparkState } from "../api.ts";
+import { emojiMap } from "./SparkList.tsx";
 
 interface SparkFormProps {
   onSubmit: (text: string) => void;
@@ -12,7 +14,7 @@ export default function SparkForm({ onSubmit, isListVisible }: SparkFormProps) {
     if (isListVisible) return; // Don't animate if the list is not visible
     const sparkAdded = document.getElementById("spark-added");
     if (sparkAdded) {
-      sparkAdded.innerHTML = '💥 ' + text;
+      sparkAdded.innerHTML = emojiMap.open + ' ' + text;
       sparkAdded.classList.add("spark-added-animation");
       setTimeout(() => {
         sparkAdded.classList.remove("spark-added-animation");
@@ -39,7 +41,7 @@ export default function SparkForm({ onSubmit, isListVisible }: SparkFormProps) {
         className="new-spark-input"
       />
       <button type="submit" style={{ whiteSpace: "nowrap"}}>
-        Save 💥
+        Save {emojiMap[SparkState.Open]}
       </button>
     </form>
   );

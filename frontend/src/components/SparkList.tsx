@@ -9,7 +9,7 @@ interface SparkListProps {
   loadSparks: () => void;
 }
 
-const emojiMap = {
+export const emojiMap = {
   [SparkState.Open]: "💥",
   [SparkState.Ignored]: "❄️",
   [SparkState.Searched]: "🔍",
