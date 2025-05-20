@@ -43,7 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sparks[] = [
         'id' => uniqid(),
         'text' => $data['text'],
-        'state' => 'open'
+        'state' => 'open',
+        'created_at' => date('c') // ISO 8601 format
     ];
     file_put_contents($sparksFile, json_encode($sparks, JSON_PRETTY_PRINT));
     echo json_encode(['status' => 'success']);

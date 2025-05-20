@@ -29,7 +29,7 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  place-items: flex-start;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -55,7 +55,7 @@ button:hover {
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  /*outline: 4px auto -webkit-focus-ring-color;*/
 }
 
 @media (prefers-color-scheme: light) {
@@ -154,5 +154,9 @@ form {
   /*// transition to 0 opacity after 1 second over 0.5 seconds*/
   opacity: 0;
   transition: opacity 0.5s ease 1s;
+}
 
+.spark-header {
+  display: flex;
+  justify-content: space-between;
 }

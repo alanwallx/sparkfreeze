@@ -8,7 +8,12 @@ function App() {
   const [sparksVisible, setSparksVisible] = useState(false);
 
   const loadSparks = () => {
-    fetchSparks().then(setSparks);
+    fetchSparks().then((data) => {
+      const sorted = data.sort((a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      );
+      setSparks(sorted);
+    });
   };
 
   useEffect(() => {
@@ -17,11 +22,13 @@ function App() {
 
   return (
     <div className="main-section">
-      <h1>Sparks</h1>
-      <button
-        className="toggle-sparks-button"
-        onClick={() => setSparksVisible(!sparksVisible)}
-      >{sparksVisible ? 'Hide' : 'Show'} Sparks</button>
+      <div className={"spark-header"}>
+        <h1>Sparks</h1>
+        <button
+          className="toggle-sparks-button"
+          onClick={() => setSparksVisible(!sparksVisible)}
+        >{sparksVisible ? 'Hide' : 'Show'} Sparks</button>
+      </div>
       <SparkForm onSubmit={(text) => {
         addSpark(text).then(() => {
           loadSparks();

@@ -2,6 +2,7 @@ export interface Spark {
   id: string;
   text: string;
   state: SparkState;
+  created_at: string;
 }
 
 const API_URL = "http://localhost:8080";
