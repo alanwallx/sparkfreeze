@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { addSpark, fetchSparks, Spark, updateSparkState, deleteSpark } from "./api";
 import SparkForm from "./components/SparkForm.tsx";
 import SparkList from "./components/SparkList";
+import ToggleSwitch from "./components/ToggleSwitch.tsx";
 
 function App() {
   const [sparks, setSparks] = useState<Spark[]>([]);
   const [sparksVisible, setSparksVisible] = useState(false);
+  const [checked, setChecked] = useState(true);
 
   const loadSparks = () => {
     fetchSparks().then((data) => {
@@ -28,6 +30,7 @@ function App() {
           className="toggle-sparks-button"
           onClick={() => setSparksVisible(!sparksVisible)}
         >{sparksVisible ? 'Hide' : 'Show'} Sparks</button>
+        <ToggleSwitch checked={checked} onChange={setChecked} />
       </div>
       <SparkForm onSubmit={(text) => {
         addSpark(text).then(() => {

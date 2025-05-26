@@ -26,7 +26,7 @@
     {
         "id": "67f508efad23c",
         "text": "kaleidoscope lineup",
-        "state": "searched",
+        "state": "finished",
         "created_at": "2025-05-20T21:32:19+00:00"
     },
     {
@@ -44,7 +44,19 @@
     {
         "id": "67ffacab3dd5e",
         "text": "Is there a variation of MAME for linux? (Faster boot, boot straight to Mame?)",
-        "state": "open",
+        "state": "searched",
         "created_at": "2025-05-20T21:35:19+00:00"
+    },
+    {
+        "id": "682d0284a3920",
+        "text": "What year did Kurt Kobain die?",
+        "state": "ignored",
+        "created_at": "2025-05-20T22:30:28+00:00"
+    },
+    {
+        "id": "682f9ac696156",
+        "text": "dsfdfas",
+        "state": "open",
+        "created_at": "2025-05-22T21:44:38+00:00"
     }
 ]
