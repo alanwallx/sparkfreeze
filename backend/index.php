@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['id'])) {
     exit;
 }
 
+// create a new spark
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
     $sparks = file_exists($sparksFile) ? json_decode(file_get_contents($sparksFile), true) : [];
