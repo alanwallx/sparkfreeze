@@ -7,7 +7,7 @@ import ToggleSwitch from "./components/ToggleSwitch.tsx";
 function App() {
   const [sparks, setSparks] = useState<Spark[]>([]);
   const [sparksVisible, setSparksVisible] = useState(false);
-  const [checked, setChecked] = useState(true);
+  // const [checked, setChecked] = useState(true);
 
   const loadSparks = () => {
     fetchSparks().then((data) => {
@@ -26,11 +26,7 @@ function App() {
     <div className="main-section">
       <div className={"spark-header"}>
         <h1>Sparks</h1>
-        <button
-          className="toggle-sparks-button"
-          onClick={() => setSparksVisible(!sparksVisible)}
-        >{sparksVisible ? 'Hide' : 'Show'} Sparks</button>
-        <ToggleSwitch checked={checked} onChange={setChecked} />
+        <ToggleSwitch checked={sparksVisible} onChange={setSparksVisible} label={"Show sparks"} />
       </div>
       <SparkForm onSubmit={(text) => {
         addSpark(text).then(() => {

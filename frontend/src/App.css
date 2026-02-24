@@ -161,3 +161,7 @@ form {
   display: flex;
   justify-content: space-between;
 }
+
+.toggle-switch{
+  align-items: center;
+}

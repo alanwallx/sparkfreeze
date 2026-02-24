@@ -32,7 +32,7 @@
     {
         "id": "67f67ef974d49",
         "text": "who are the biggest earners on patreon?",
-        "state": "ignored",
+        "state": "finished",
         "created_at": "2025-05-20T21:33:19+00:00"
     },
     {
@@ -54,9 +54,27 @@
         "created_at": "2025-05-20T22:30:28+00:00"
     },
     {
-        "id": "682f9ac696156",
-        "text": "dsfdfas",
+        "id": "68dbb57594591",
+        "text": "Is Jungle's album considered a good album on besteveralbums.com",
+        "state": "finished",
+        "created_at": "2025-09-30T10:48:21+00:00"
+    },
+    {
+        "id": "68deddc8489f0",
+        "text": "What did the critics think of the album Digitalism by Mirage?",
         "state": "open",
-        "created_at": "2025-05-22T21:44:38+00:00"
+        "created_at": "2025-10-02T20:17:12+00:00"
+    },
+    {
+        "id": "68df98be33996",
+        "text": "Take a look at the catalogue for the Marantz cd-42 mkII",
+        "state": "open",
+        "created_at": "2025-10-03T09:34:54+00:00"
+    },
+    {
+        "id": "699ca31e435de",
+        "text": "how does postman work",
+        "state": "open",
+        "created_at": "2026-02-23T18:57:34+00:00"
     }
 ]
