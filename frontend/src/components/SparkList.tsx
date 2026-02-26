@@ -4,8 +4,8 @@ import { deleteSpark, Spark, SparkState } from "../api";
 
 interface SparkListProps {
   sparks: Spark[];
-  updateSparkState: (id: string, state: SparkState) => Promise<void>;
-  deleteSpark: (id: string) => Promise<void>;
+  updateSparkState: (id: number, state: SparkState) => Promise<void>;
+  deleteSpark: (id: number) => Promise<void>;
   loadSparks: () => void;
 }
 
@@ -21,7 +21,7 @@ export default function SparkList({
                                     updateSparkState,
                                     loadSparks,
                                   }: SparkListProps) {
-  const [activeSparkId, setActiveSparkId] = useState<string | null>(null);
+  const [activeSparkId, setActiveSparkId] = useState<number | null>(null);
 
   return (
     <ul className={"sparks-list"} style={{ marginTop: "2rem" }}>

@@ -27,6 +27,18 @@ services:
     depends_on:
       - db
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: sparkfreeze-phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+
   db:
     image: mysql:8.0
     container_name: sparkfreeze-mysql
@@ -40,7 +52,9 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./backend/migrations:/docker-entrypoint-initdb.d
     command: --default-authentication-plugin=mysql_native_password
 
 volumes:
   mysql_data:
+
