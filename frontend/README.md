@@ -7,7 +7,7 @@ A simple productivity app to capture distracting thoughts ("Sparks") while worki
 ## 🚀 Project Stack
 
 - **Frontend:** React + TypeScript (Vite)
-- **Backend:** PHP 8.2 (No framework)
+- **Backend:** PHP 8.1 (No framework)
 - **Containerised:** Docker & Docker Compose
 
 ---
@@ -98,5 +98,4 @@ The following are excluded from version control:
 
 - Build React frontend UI to add, view, ignore Sparks.
 - Connect React frontend to PHP API.
-- (Optional) Improve data storage: switch to SQLite instead of JSON file.
 

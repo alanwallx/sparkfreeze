@@ -102,7 +102,14 @@ class SparkController
         if ($raw === '' || $raw === false) {
             return [];
         }
-        return json_decode($raw, true) ?? [];
+
+        $data = json_decode($raw, true);
+        if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
+            $this->error('INVALID_JSON', 'Request body must be valid JSON', 400);
+            exit;
+        }
+    
+        return is_array($data) ? $data : [];
     }
 
     private function json(array $data, int $status): void

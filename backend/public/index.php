@@ -2,10 +2,26 @@
 
 declare(strict_types=1);
 
-// ---- CORS -------------------------------------------------------------------
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Headers: Content-Type, Authorization');
-header('Access-Control-Allow-Methods: GET, POST, PATCH, DELETE, OPTIONS');
+require_once __DIR__ . '/../src/bootstrap.php';
+
+/// ---- CORS -------------------------------------------------------------------
+function env_list(string $key): array {
+    $raw = getenv($key) ?: '';
+    if ($raw === '') return [];
+    $parts = array_map('trim', explode(',', $raw));
+    return array_values(array_filter($parts, fn($v) => $v !== ''));
+}
+
+$allowedOrigins = env_list('APP_ALLOWED_ORIGINS');
+
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if ($origin !== '' && in_array($origin, $allowedOrigins, true)) {
+    header("Access-Control-Allow-Origin: {$origin}");
+    header('Access-Control-Allow-Credentials: true');
+    header('Vary: Origin');
+    header('Access-Control-Allow-Headers: Content-Type');
+    header('Access-Control-Allow-Methods: GET, POST, PATCH, DELETE, OPTIONS');
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(204);
