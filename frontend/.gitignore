@@ -32,3 +32,4 @@ lerna-debug.log*
 # Environment files
 .env
 .pnp.*
+.env.local

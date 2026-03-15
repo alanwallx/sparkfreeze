@@ -32,9 +32,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 require_once __DIR__ . '/../src/Db.php';
 require_once __DIR__ . '/../src/SparkRepository.php';
 require_once __DIR__ . '/../src/SparkController.php';
+require_once __DIR__ . '/../src/AuthController.php';
 
-$controller = new SparkController(
-    new SparkRepository(Db::get())
+$pdo = Db::get();
+
+$authController = new AuthController(
+    $pdo,
+    new GoogleIdTokenVerifier(
+        getenv('GOOGLE_CLIENT_ID') ?: '',
+        __DIR__ . '/../var/cache/google_certs.json'
+    )
+);
+
+$sparkController = new SparkController(
+    new SparkRepository($pdo)
 );
 
 // ---- Route parsing ----------------------------------------------------------
@@ -50,13 +61,13 @@ $segments = array_values(
 
 // GET /sparks
 if ($method === 'GET' && $segments === ['sparks']) {
-    $controller->listSparks();
+    $sparkController->listSparks();
     exit;
 }
 
 // POST /sparks
 if ($method === 'POST' && $segments === ['sparks']) {
-    $controller->createSpark();
+    $sparkController->createSpark();
     exit;
 }
 
@@ -69,7 +80,7 @@ if ($method === 'PATCH' && count($segments) === 2 && $segments[0] === 'sparks') 
         echo json_encode(['error' => ['code' => 'INVALID_ID', 'message' => 'ID must be a positive integer']]);
         exit;
     }
-    $controller->updateSpark((int) $id);
+    $sparkController->updateSpark((int) $id);
     exit;
 }
 
@@ -82,19 +93,31 @@ if ($method === 'DELETE' && count($segments) === 2 && $segments[0] === 'sparks')
         echo json_encode(['error' => ['code' => 'INVALID_ID', 'message' => 'ID must be a positive integer']]);
         exit;
     }
-    $controller->deleteSpark((int) $id);
+    $sparkController->deleteSpark((int) $id);
+    exit;
+}
+
+// GET /auth/nonce
+if ($method === 'GET' && $segments === ['auth', 'nonce']) {
+    $authController->nonce();
+    exit;
+}
+
+// POST /auth/google
+if ($method === 'POST' && $segments === ['auth', 'google']) {
+    $authController->googleLogin();
     exit;
 }
 
 // GET /auth/session
 if ($method === 'GET' && $segments === ['auth', 'session']) {
-    $controller->getSession();
+    $authController->session();
     exit;
 }
 
 // POST /auth/logout
 if ($method === 'POST' && $segments === ['auth', 'logout']) {
-    $controller->logout();
+    $authController->logout();
     exit;
 }
 

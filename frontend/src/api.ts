@@ -7,7 +7,7 @@ export interface Spark {
   completed_note: string | null;
 }
 
-const API_URL = "http://localhost:8080";
+const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8080";
 
 export enum SparkState {
   Open = "open",
@@ -17,7 +17,9 @@ export enum SparkState {
 }
 
 export async function fetchSparks(): Promise<Spark[]> {
-  const res = await fetch(`${API_URL}/sparks`);
+  const res = await fetch(`${API_URL}/sparks`, {
+    credentials: "include",
+  });
   const data = await res.json();
   return data.items;
 }
@@ -27,6 +29,7 @@ export async function addSpark(text: string): Promise<Spark> {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ text }),
+    credentials: "include",
   });
   const data = await res.json();
   return data.item;
@@ -35,6 +38,7 @@ export async function addSpark(text: string): Promise<Spark> {
 export async function deleteSpark(id: number): Promise<void> {
   await fetch(`${API_URL}/sparks/${id}`, {
     method: "DELETE",
+    credentials: "include",
   });
 }
 
@@ -46,5 +50,6 @@ export async function updateSparkState(
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ state }),
+    credentials: "include",
   });
 }
