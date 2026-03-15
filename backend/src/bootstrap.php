@@ -1,11 +1,18 @@
 <?php
 
+require_once __DIR__ . '/Env.php';
+
+Env::load(__DIR__ . '/../.env');
+
 // ---- Session ---------------------------------------------------------------
-$isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+$appEnv = getenv('APP_ENV') ?: 'development';
+$secure = $appEnv === 'production';
+
 session_set_cookie_params([
-      'httponly' => true,
-      'secure' => $isHttps,   // use env flag in production
-      'samesite' => 'Lax',
-      'path' => '/',
-  ]);
+  'httponly' => true,
+  'secure'   => $secure,
+  'samesite' => 'Lax',
+  'path'     => '/',
+]);
+
 session_start();
