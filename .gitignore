@@ -4,3 +4,6 @@
 .env.production
 backend/.env
 .claude
+/var/cache/*
+backend/var/cache/*
+

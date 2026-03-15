@@ -7,7 +7,12 @@ export interface Spark {
   completed_note: string | null;
 }
 
-const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8080";
+// const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8080";
+const API_URL = import.meta.env.VITE_API_URL;
+console.log(import.meta.env);
+if (!API_URL) {
+  throw new Error("API_URL environment variable is not defined");
+}
 
 export enum SparkState {
   Open = "open",
@@ -18,7 +23,7 @@ export enum SparkState {
 
 export async function fetchSparks(): Promise<Spark[]> {
   const res = await fetch(`${API_URL}/sparks`, {
-    credentials: "include",
+    credentials: "include"
   });
   const data = await res.json();
   return data.items;
