@@ -9,7 +9,6 @@ export interface Spark {
 
 // const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8080";
 const API_URL = import.meta.env.VITE_API_URL;
-console.log(import.meta.env);
 if (!API_URL) {
   throw new Error("API_URL environment variable is not defined");
 }

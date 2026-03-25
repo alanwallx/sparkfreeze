@@ -122,20 +122,30 @@ final class GoogleIdTokenVerifier
         if ($cached !== null) return $cached;
         
         $url = 'https://www.googleapis.com/oauth2/v1/certs';
-        $context = stream_context_create([
-                                             'http' => [
-                                                 'method' => 'GET',
-                                                 'timeout' => 5,
-                                                 'header' => "Accept: application/json\r\n",
-                                             ],
-                                         ]);
-        
-        $raw = @file_get_contents($url, false, $context);
-        if ($raw === false) {
-            throw new RuntimeException('Failed to download Google certs');
+
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT        => 5,
+            CURLOPT_HTTPHEADER     => ['Accept: application/json'],
+            CURLOPT_HEADER         => true,
+        ]);
+        $response = curl_exec($ch);
+        $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+        $curlError  = curl_error($ch);
+        curl_close($ch);
+
+        if ($response === false || $response === '') {
+            throw new RuntimeException('Failed to download Google certs: ' . $curlError);
         }
-        
-        $headers = $http_response_header ?? [];
+
+        $rawHeaders = substr($response, 0, $headerSize);
+        $raw        = substr($response, $headerSize);
+
+        $headers = array_filter(
+            explode("\r\n", $rawHeaders),
+            fn(string $h) => stripos($h, 'Cache-Control:') === 0
+        );
         $maxAge = $this->parseMaxAge($headers) ?? 300;
         
         $json = json_decode($raw, true);
