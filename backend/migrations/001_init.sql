@@ -28,5 +28,3 @@ CREATE TABLE IF NOT EXISTS sparks (
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Seed dev user (id=1) — used until OAuth is wired up
-INSERT IGNORE INTO users (id, email, name) VALUES (1, 'dev@localhost', 'Dev User');
